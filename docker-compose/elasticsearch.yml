@@ -56,7 +56,7 @@ services:
       - "CYGNUS_API_PORT=${CYGNUS_API_PORT}" # Port that Cygnus listens on for operational reasons
       - "CYGNUS_LOG_LEVEL=DEBUG" # The logging level for Cygnus
     healthcheck:
-      test: curl --fail -s http://localhost:${CYGNUS_API_ADMIN_PORT}/v1/version || exit 1
+      test: curl --fail -s http://localhost:${CYGNUS_API_PORT}/v1/version || exit 1
 
   # IoT-Agent is configured for the UltraLight Protocol
   iot-agent:

@@ -138,9 +138,10 @@ This application builds on the components and dummy IoT devices created in
 [Cygnus Generic Enabler](https://fiware-cygnus.readthedocs.io/en/latest/) for persisting context data to a database.
 Additional databases are now involved - both the Orion Context Broker and the IoT Agent rely on
 [MongoDB](https://www.mongodb.com/) technology to keep persistence of the information they hold, and we will be
-persisting our historical context data another database - either **MySQL** , **PostgreSQL** or **MongoDB** database.
+persisting our historical context data another database - either **MySQL** , **PostgreSQL**, **MongoDB**, or
+**ElasticSearch** database.
 
-Therefore the overall architecture will consist of the following elements:
+Therefore, the overall architecture will consist of the following elements:
 
 -   Three **FIWARE Generic Enablers**:
     -   The FIWARE [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) which will receive requests
@@ -152,7 +153,7 @@ Therefore the overall architecture will consist of the following elements:
         context broker to alter the state of the context entities
     -   FIWARE [Cygnus](https://fiware-cygnus.readthedocs.io/en/latest/) which will subscribe to context changes and
         persist them into a database (**MySQL** , **PostgreSQL** or **MongoDB**)
--   One, two or three of the following **Databases**:
+-   One, two, three, or four of the following **Databases**:
     -   The underlying [MongoDB](https://www.mongodb.com/) database :
         -   Used by the **Orion Context Broker** to hold context data information such as data entities, subscriptions
             and registrations
@@ -161,6 +162,8 @@ Therefore the overall architecture will consist of the following elements:
     -   An additional [PostgreSQL](https://www.postgresql.org/) database :
         -   Potentially used as a data sink to hold historical context data.
     -   An additional [MySQL](https://www.mysql.com/) database :
+        -   Potentially used as a data sink to hold historical context data.
+    -   An additional [ElasticSearch](https://www.elastic.co) database :
         -   Potentially used as a data sink to hold historical context data.
 -   Three **Context Providers**:
     -   The **Stock Management Frontend** is not used in this tutorial. It does the following:
@@ -959,7 +962,7 @@ elasticsearch-db:
     hostname: elasticsearch
     container_name: db-elasticsearch
     expose:
-      - "${MONGO_DB_PORT}"
+      - "${ELASTICSEARCH_PORT}"
     ports:
       - "${ELASTICSEARCH_PORT}:${ELASTICSEARCH_PORT}"
     networks:
